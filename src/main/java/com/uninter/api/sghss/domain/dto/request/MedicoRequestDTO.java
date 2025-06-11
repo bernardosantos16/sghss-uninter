@@ -14,10 +14,10 @@ public record MedicoRequestDTO(
         @NotBlank @Email
         String email,
 
-        @NotBlank @Pattern(regexp = "\\(\\d{2}\\) \\d{4,5}-\\d{4}") // validar o formato do telefone (ex: (XX) XXXX-XXXX ou (XX) XXXXX-XXXX)
+        @NotBlank @Pattern(regexp = "\\(\\d{2}\\) \\d{4,5}-\\d{4}", message = "Telefone deve estar no formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX") // validar o formato do telefone (ex: (XX) XXXX-XXXX ou (XX) XXXXX-XXXX)
         String telefone,
 
-        @NotBlank @Pattern(regexp = "\\d{4,6}") // validar o formato do CRM (4 a 6 dígitos)
+        @NotBlank @Pattern(regexp = "\\d{4,6}", message = "CRM inválido") // validar o formato do CRM (4 a 6 dígitos)
         String crm,
 
         @NotNull

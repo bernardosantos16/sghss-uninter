@@ -5,6 +5,7 @@ import com.uninter.api.sghss.domain.dto.request.UpdateRequestMedicoDTO;
 import com.uninter.api.sghss.domain.enums.Especialidade;
 import com.uninter.api.sghss.domain.valueobjects.Endereco;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

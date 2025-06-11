@@ -9,7 +9,7 @@ public record EnderecoRequestDTO(
         @NotBlank
         String bairro,
         @NotBlank
-        @Pattern(regexp = "\\d{8}") // validar o formato do CEP (8 dígitos)
+        @Pattern(regexp = "\\d{8}", message = "CEP inválido") // validar o formato do CEP (8 dígitos)
         String cep,
         @NotBlank
         String cidade,
