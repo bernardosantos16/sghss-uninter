@@ -1,5 +1,6 @@
 package com.uninter.api.sghss.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.uninter.api.sghss.domain.dto.request.MedicoRequestDTO;
 import com.uninter.api.sghss.domain.dto.request.UpdateRequestMedicoDTO;
 import com.uninter.api.sghss.domain.enums.Especialidade;
@@ -29,7 +30,7 @@ public class Medico {
     @Embedded
     private Endereco endereco;
 
-    private Boolean ativo;
+    private Boolean ativo = true;
 
 
     public Medico(MedicoRequestDTO medicoRequestDTO){
@@ -39,7 +40,7 @@ public class Medico {
         this.crm = medicoRequestDTO.crm();
         this.especialidade = medicoRequestDTO.especialidade();
         this.endereco = new Endereco(medicoRequestDTO.endereco());
-        this.ativo = true; // Por padrão, o médico é ativo ao ser criado
+        // this.ativo = true; // Por padrão, o médico é ativo ao ser criado
     }
 
     public void atualizar(UpdateRequestMedicoDTO updateRequestMedicoDTO) {
