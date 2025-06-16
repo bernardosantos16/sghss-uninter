@@ -1,4 +1,4 @@
-package com.uninter.api.sghss.infra.exceptions;
+package com.uninter.api.sghss.infra.exceptions.errors;
 
 import org.springframework.validation.FieldError;
 
