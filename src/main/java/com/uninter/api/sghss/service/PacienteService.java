@@ -23,7 +23,7 @@ public class PacienteService {
 
     private final String NOT_FOUND_MESSAGE = "Paciente não encontrado com o ID: ";
 
-    private Paciente findPacienteById(Long id) {
+    public Paciente findPacienteById(Long id) {
         return pacienteRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(NOT_FOUND_MESSAGE + id));
     }

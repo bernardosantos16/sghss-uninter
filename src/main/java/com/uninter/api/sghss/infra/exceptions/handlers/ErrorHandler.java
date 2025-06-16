@@ -1,11 +1,10 @@
-package com.uninter.api.sghss.infra.exceptions;
+package com.uninter.api.sghss.infra.exceptions.handlers;
 
-import org.apache.coyote.BadRequestException;
+import com.uninter.api.sghss.infra.exceptions.errors.Erro400;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.client.HttpClientErrorException;
 
 @RestControllerAdvice
 public class ErrorHandler {
