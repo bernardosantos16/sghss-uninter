@@ -21,11 +21,11 @@ public class PacienteService {
     @Autowired
     PacienteMapper pacienteMapper;
 
-    private final String NOT_FOUND_MESSAGE = "Paciente não encontrado com o ID: ";
 
-    public Paciente findPacienteById(Long id) {
+
+    private Paciente findPacienteById(Long id) {
         return pacienteRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(NOT_FOUND_MESSAGE + id));
+                .orElseThrow(() -> new NotFoundException("Paciente não encontrado com o ID:" + id));
     }
 
     public PacienteDetailedResponseDTO cadastrarPaciente(PacienteRequestDTO pacienteRequestDTO){

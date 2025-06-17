@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="consultas")
@@ -38,6 +40,9 @@ public class Consulta {
 
     private LocalDateTime dataCancelamento;
 
+    @OneToMany(mappedBy = "consulta", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Prescricao> prescricoes = new ArrayList<>();
+
     private String observacoes;
 
     public Consulta(Medico medico, Paciente paciente, LocalDateTime data, String observacoes) {
@@ -53,5 +58,15 @@ public class Consulta {
         this.motivoCancelamento = motivoCancelamento;
         this.dataCancelamento = LocalDateTime.now();
     }
+
+    public void adicionarPrescricao(Prescricao prescricao) {
+        prescricoes.add(prescricao);
+        prescricao.setConsulta(this);
+    }
+
+
+
+
+
 }
 
