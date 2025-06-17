@@ -1,6 +1,6 @@
 package com.uninter.api.sghss.controller;
 
-import com.uninter.api.sghss.domain.dto.request.CancelamentoConsultaDTO;
+import com.uninter.api.sghss.domain.dto.request.CancelamentoRequestConsultaDTO;
 import com.uninter.api.sghss.domain.dto.request.ConsultaRequestDTO;
 import com.uninter.api.sghss.domain.dto.response.ConsultaDetailedResponseDTO;
 import com.uninter.api.sghss.service.ConsultaService;
@@ -53,8 +53,8 @@ public class ConsultaController {
     @DeleteMapping
     @Transactional
     public ResponseEntity<Void> cancelarConsulta(
-            @RequestBody @Valid CancelamentoConsultaDTO cancelamentoConsultaDTO){
-        consultaService.cancelarConsulta(cancelamentoConsultaDTO);
+            @RequestBody @Valid CancelamentoRequestConsultaDTO cancelamentoRequestConsultaDTO){
+        consultaService.cancelarConsulta(cancelamentoRequestConsultaDTO);
         return ResponseEntity.noContent().build();
     }
 }

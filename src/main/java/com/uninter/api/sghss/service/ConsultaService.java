@@ -1,10 +1,9 @@
 package com.uninter.api.sghss.service;
 
-import com.uninter.api.sghss.domain.dto.request.CancelamentoConsultaDTO;
+import com.uninter.api.sghss.domain.dto.request.CancelamentoRequestConsultaDTO;
 import com.uninter.api.sghss.domain.dto.request.ConsultaRequestDTO;
 import com.uninter.api.sghss.domain.dto.response.ConsultaDetailedResponseDTO;
 import com.uninter.api.sghss.domain.entity.Consulta;
-import com.uninter.api.sghss.domain.enums.MotivoCancelamento;
 import com.uninter.api.sghss.domain.enums.StatusConsulta;
 import com.uninter.api.sghss.infra.exceptions.BadRequestException;
 import com.uninter.api.sghss.infra.exceptions.NotFoundException;
@@ -16,8 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.stream.Collectors;
 
 @Service
 public class ConsultaService {
@@ -69,13 +66,13 @@ public class ConsultaService {
         return consultas.map(consultaMapper::consultaToConsultaDetailedResponseDTO);
     }
 
-    public void cancelarConsulta(CancelamentoConsultaDTO cancelamentoConsultaDTO) {
+    public void cancelarConsulta(CancelamentoRequestConsultaDTO cancelamentoRequestConsultaDTO) {
         // Implementar a lógica para cancelar uma consulta
-        var consulta = findConsultaById(cancelamentoConsultaDTO.idConsulta());
+        var consulta = findConsultaById(cancelamentoRequestConsultaDTO.idConsulta());
         if (consulta.getStatusConsulta() == StatusConsulta.CANCELADA){
             throw new BadRequestException("Consulta já cancelada");
         }
-        consulta.cancelar(cancelamentoConsultaDTO.motivoCancelamento());
+        consulta.cancelar(cancelamentoRequestConsultaDTO.motivoCancelamento());
 
     }
 }
