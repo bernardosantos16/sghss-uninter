@@ -10,6 +10,9 @@ public class ValidadorPacienteAtivo implements IValidarAgendamentoConsulta {
 
     @Override
     public void validar(ConsultaRequestDTO consultaRequestDTO) {
+        if (consultaRequestDTO.idPaciente() == null) {
+            return; // Se não foi informado o ID do paciente, não há validação a ser feita
+        }
         var pacienteIsAtivo = pacienteRepository.verificaSePacienteEstaAtivo(consultaRequestDTO.idPaciente());
         if (!pacienteIsAtivo) {
             throw new IllegalArgumentException("O paciente selecionado não está ativo");

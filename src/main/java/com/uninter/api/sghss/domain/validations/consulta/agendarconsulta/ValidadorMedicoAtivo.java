@@ -12,6 +12,9 @@ public class ValidadorMedicoAtivo implements IValidarAgendamentoConsulta{
 
     @Override
     public void validar(ConsultaRequestDTO consultaRequestDTO) {
+        if (consultaRequestDTO.idMedico() == null) {
+            return;
+        }
         var medicoIsAtivo = medicoRepository.verificaSeMedicoEstaAtivo(consultaRequestDTO.idMedico());
         if (!medicoIsAtivo) {
             throw new IllegalArgumentException("O médico selecionado não está ativo.");
