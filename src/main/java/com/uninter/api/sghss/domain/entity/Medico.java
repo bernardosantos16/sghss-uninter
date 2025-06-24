@@ -1,12 +1,10 @@
 package com.uninter.api.sghss.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.uninter.api.sghss.domain.dto.request.MedicoRequestDTO;
 import com.uninter.api.sghss.domain.dto.request.UpdateRequestMedicoDTO;
 import com.uninter.api.sghss.domain.enums.Especialidade;
 import com.uninter.api.sghss.domain.valueobjects.Endereco;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -32,7 +30,6 @@ public class Medico {
 
     private Boolean ativo = true;
 
-
     public Medico(MedicoRequestDTO medicoRequestDTO){
         this.nome = medicoRequestDTO.nome();
         this.email = medicoRequestDTO.email();
@@ -40,7 +37,7 @@ public class Medico {
         this.crm = medicoRequestDTO.crm();
         this.especialidade = medicoRequestDTO.especialidade();
         this.endereco = new Endereco(medicoRequestDTO.endereco());
-        // this.ativo = true; // Por padrão, o médico é ativo ao ser criado
+        // this.ativo = true;
     }
 
     public void atualizar(UpdateRequestMedicoDTO updateRequestMedicoDTO) {

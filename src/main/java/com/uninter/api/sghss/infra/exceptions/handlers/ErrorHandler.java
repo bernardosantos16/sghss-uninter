@@ -17,5 +17,10 @@ public class ErrorHandler {
                 .toList();
         return ResponseEntity.badRequest().body(errors);
     }
+//    @ExceptionHandler(IllegalArgumentException.class)
+//    public ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException ex) {
+//        var error = ex.getMessage();
+//        return ResponseEntity.badRequest().body(error);
+//    }
 
 }

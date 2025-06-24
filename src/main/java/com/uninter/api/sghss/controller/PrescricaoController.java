@@ -1,6 +1,7 @@
 package com.uninter.api.sghss.controller;
 
 import com.uninter.api.sghss.domain.dto.request.PrescricaoRequestDTO;
+import com.uninter.api.sghss.domain.dto.response.PrescricaoResponseDTO;
 import com.uninter.api.sghss.service.PrescricaoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class PrescricaoController {
     PrescricaoService prescricaoService;
 
     @PostMapping
-    public ResponseEntity<?> criarPrescricao(
+    public ResponseEntity<PrescricaoResponseDTO> criarPrescricao(
             @RequestBody
             @Valid
             PrescricaoRequestDTO prescricaoRequestDTO
@@ -26,5 +27,4 @@ public class PrescricaoController {
         var response = prescricaoService.criarPrescriacao(prescricaoRequestDTO);
         return ResponseEntity.ok(response);
     }
-
 }
