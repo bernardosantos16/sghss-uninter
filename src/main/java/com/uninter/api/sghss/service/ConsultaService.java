@@ -7,6 +7,7 @@ import com.uninter.api.sghss.domain.entity.Consulta;
 import com.uninter.api.sghss.domain.entity.Medico;
 import com.uninter.api.sghss.domain.enums.StatusConsulta;
 import com.uninter.api.sghss.domain.validations.consulta.agendarconsulta.IValidarAgendamentoConsulta;
+import com.uninter.api.sghss.domain.validations.consulta.cancelarconsulta.IValidarCancelamentoDeConsultas;
 import com.uninter.api.sghss.infra.exceptions.BadRequestException;
 import com.uninter.api.sghss.infra.exceptions.NotFoundException;
 import com.uninter.api.sghss.infra.exceptions.UnprocessebleEntityException;
@@ -39,6 +40,9 @@ public class ConsultaService {
     @Autowired
     private List<IValidarAgendamentoConsulta> validadoresAgendamentoDeConsulta;
 
+    @Autowired
+    private List<IValidarCancelamentoDeConsultas> validadoresCancelamentoDeConsulta;
+
     private Consulta findConsultaById(Long id) {
         return consultaRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Consulta não encontrada com o ID: " + id));
@@ -70,7 +74,6 @@ public class ConsultaService {
             throw new BadRequestException("Especialidade não informada.");
         }
         return medicoRepository.medicoAleatorioLivreNaData(consultaRequestDTO.especialidade(), consultaRequestDTO.data());
-
     }
 
     public ConsultaDetailedResponseDTO getConsultaById(Long id) {
@@ -87,6 +90,7 @@ public class ConsultaService {
     public void cancelarConsulta(CancelamentoRequestConsultaDTO cancelamentoRequestConsultaDTO) {
         // Implementar a lógica para cancelar uma consulta
         var consulta = findConsultaById(cancelamentoRequestConsultaDTO.idConsulta());
+        validadoresCancelamentoDeConsulta.forEach(v -> v.validar(cancelamentoRequestConsultaDTO));
         if (consulta.getStatusConsulta() == StatusConsulta.CANCELADA) {
             throw new BadRequestException("Consulta já cancelada");
         }
