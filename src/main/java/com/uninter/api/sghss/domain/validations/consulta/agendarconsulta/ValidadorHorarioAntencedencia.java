@@ -3,7 +3,6 @@ package com.uninter.api.sghss.domain.validations.consulta.agendarconsulta;
 
 import com.uninter.api.sghss.domain.dto.request.ConsultaRequestDTO;
 import com.uninter.api.sghss.infra.exceptions.UnprocessebleEntityException;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;

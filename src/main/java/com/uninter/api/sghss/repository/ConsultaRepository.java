@@ -25,5 +25,4 @@ public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
             """)
     Boolean verificaSeMedicoEstaOcupado(Long medicoId, LocalDateTime data, StatusConsulta status);
 
-    Boolean existsByMedicoIdAndDataAndStatusConsulta(Long medicoId, LocalDateTime data, StatusConsulta statusConsulta);
 }

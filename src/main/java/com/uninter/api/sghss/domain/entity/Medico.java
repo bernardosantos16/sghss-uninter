@@ -1,12 +1,10 @@
 package com.uninter.api.sghss.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.uninter.api.sghss.domain.dto.request.MedicoRequestDTO;
 import com.uninter.api.sghss.domain.dto.request.UpdateRequestMedicoDTO;
 import com.uninter.api.sghss.domain.enums.Especialidade;
 import com.uninter.api.sghss.domain.valueobjects.Endereco;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
