@@ -5,6 +5,7 @@ import com.uninter.api.sghss.domain.dto.request.ConsultaRequestDTO;
 import com.uninter.api.sghss.domain.dto.response.ConsultaDetailedResponseDTO;
 import com.uninter.api.sghss.domain.entity.Consulta;
 import com.uninter.api.sghss.domain.enums.StatusConsulta;
+import com.uninter.api.sghss.domain.validations.consulta.agendarconsulta.IValidarAgendamentoConsulta;
 import com.uninter.api.sghss.infra.exceptions.BadRequestException;
 import com.uninter.api.sghss.infra.exceptions.NotFoundException;
 import com.uninter.api.sghss.mapper.ConsultaMapper;
@@ -15,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ConsultaService {
@@ -31,19 +34,20 @@ public class ConsultaService {
     @Autowired
     private MedicoRepository medicoRepository;
 
+    @Autowired
+    private List<IValidarAgendamentoConsulta> validadoresAgendamentoDeConsulta;
+
     private Consulta findConsultaById(Long id) {
         return consultaRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Consulta não encontrada com o ID: " + id));
     }
 
     public ConsultaDetailedResponseDTO cadastrarConsulta(ConsultaRequestDTO consultaRequestDTO) {
-        // Aqui você pode implementar a lógica para cadastrar uma consulta
-        // Por exemplo, buscar a consulta pelo ID e mapear para o DTO de resposta
         var paciente = pacienteRepository.getReferenceById(consultaRequestDTO.idPaciente());
         var medico = medicoRepository.getReferenceById(consultaRequestDTO.idMedico());
 
 
-        //validadoresAgendamentoDeConsulta.forEach(v -> v.validar(consultaDTO));
+        validadoresAgendamentoDeConsulta.forEach(v -> v.validar(consultaRequestDTO));
         // var medico = escolherMedico(consultaDTO);
 //        if (medico == null) {
 //            throw new ValidacaoException("Não há médicos disponíveis.");

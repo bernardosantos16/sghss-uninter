@@ -32,7 +32,6 @@ public class Medico {
 
     private Boolean ativo = true;
 
-
     public Medico(MedicoRequestDTO medicoRequestDTO){
         this.nome = medicoRequestDTO.nome();
         this.email = medicoRequestDTO.email();
@@ -40,7 +39,7 @@ public class Medico {
         this.crm = medicoRequestDTO.crm();
         this.especialidade = medicoRequestDTO.especialidade();
         this.endereco = new Endereco(medicoRequestDTO.endereco());
-        // this.ativo = true; // Por padrão, o médico é ativo ao ser criado
+        // this.ativo = true;
     }
 
     public void atualizar(UpdateRequestMedicoDTO updateRequestMedicoDTO) {

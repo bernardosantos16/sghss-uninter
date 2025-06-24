@@ -1,10 +1,13 @@
 package com.uninter.api.sghss.repository;
 
 import com.uninter.api.sghss.domain.entity.Consulta;
+import com.uninter.api.sghss.domain.enums.StatusConsulta;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
+import java.time.LocalDateTime;
 
 public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
 
@@ -13,4 +16,14 @@ public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
             and c.statusConsulta != 'CANCELADA'
             """)
     Page<Consulta> getConsultaPorPaciente(Long id, Pageable pageable);
+
+    @Query("""
+            SELECT COUNT(c) > 0 FROM Consulta c
+            WHERE c.medico.id = :medicoId
+            AND c.data = :data
+            AND c.statusConsulta != :status
+            """)
+    Boolean verificaSeMedicoEstaOcupado(Long medicoId, LocalDateTime data, StatusConsulta status);
+
+    Boolean existsByMedicoIdAndDataAndStatusConsulta(Long medicoId, LocalDateTime data, StatusConsulta statusConsulta);
 }
