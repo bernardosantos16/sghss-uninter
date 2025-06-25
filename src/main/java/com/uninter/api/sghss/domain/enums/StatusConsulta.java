@@ -6,7 +6,7 @@ import lombok.Getter;
 public enum StatusConsulta {
     PENDENTE("Pendente"),
     CANCELADA("Cancelada"),
-    REALIZADA("Realizada"),;
+    FINALIZADA("Finalizada"),;
 
     private final String descricao;
 

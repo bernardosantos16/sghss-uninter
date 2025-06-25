@@ -2,6 +2,7 @@ package com.uninter.api.sghss.repository;
 
 import com.uninter.api.sghss.domain.entity.Consulta;
 import com.uninter.api.sghss.domain.enums.StatusConsulta;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,4 +26,23 @@ public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
             """)
     Boolean verificaSeMedicoEstaOcupado(Long medicoId, LocalDateTime data, StatusConsulta status);
 
+    @Query("""
+            SELECT COUNT(c) > 0 FROM Consulta c
+            WHERE c.id = :id
+            AND c.statusConsulta != 'CANCELADA'
+            AND c.statusConsulta != 'FINALIZADA'
+            """)
+    Boolean verificaSeConsultaEstaAtiva(Long id);
+
+//    @Query("""
+//            select c.statusConsulta from Consulta c
+//            where c.id = :id
+//            """)
+//    StatusConsulta obterStatusConsultaPorId(Long id);
+
+    @Query("""
+            SELECT c.data FROM Consulta c
+            WHERE c.id = :id
+            """)
+    LocalDateTime obterDataConsultaPorId(Long id);
 }
