@@ -1,0 +1,1 @@
+DELETE FROM medicos; DELETE FROM pacientes;
