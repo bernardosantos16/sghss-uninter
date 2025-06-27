@@ -38,7 +38,7 @@ public class Usuario implements UserDetails {
     public Usuario(String login, String senha) {
         this.login = login;
         this.senha = senha;
-        this.userRole = UserRole.PACIENTE;
+        this.userRole = UserRole.USUARIO;
     }
 
     public void usuarioMedico(){
@@ -51,16 +51,16 @@ public class Usuario implements UserDetails {
             return List.of(
                     new SimpleGrantedAuthority("ROLE_ADMIN"),
                     new SimpleGrantedAuthority("ROLE_MEDICO"),
-                    new SimpleGrantedAuthority("ROLE_PACIENTE")
+                    new SimpleGrantedAuthority("ROLE_USUARIO")
             );
         }
         if (this.userRole == UserRole.MEDICO) {
             return List.of(
                     new SimpleGrantedAuthority("ROLE_MEDICO"),
-                    new SimpleGrantedAuthority("ROLE_PACIENTE")
+                    new SimpleGrantedAuthority("ROLE_USUARIO")
             );
         }
-        return List.of(new SimpleGrantedAuthority("ROLE_PACIENTE"));
+        return List.of(new SimpleGrantedAuthority("ROLE_USUARIO"));
     }
 
     @Override

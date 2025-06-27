@@ -16,16 +16,16 @@ import java.util.List;
 @Service
 public class PrescricaoService {
     @Autowired
-    PrescricaoRepository prescricaoRepository;
+    private PrescricaoRepository prescricaoRepository;
 
     @Autowired
-    ConsultaRepository consultaRepository;
+    private ConsultaRepository consultaRepository;
 
     @Autowired
-    List<IValidarLancamentoPrescricao> validadoresLancamentoPrescricao;
+    private List<IValidarLancamentoPrescricao> validadoresLancamentoPrescricao;
 
     @Autowired
-    PrescricaoMapper prescricaoMapper;
+    private PrescricaoMapper prescricaoMapper;
 
     public PrescricaoResponseDTO criarPrescriacao(PrescricaoRequestDTO prescricaoRequestDTO){
         var consulta = consultaRepository.findById(prescricaoRequestDTO.idConsulta())

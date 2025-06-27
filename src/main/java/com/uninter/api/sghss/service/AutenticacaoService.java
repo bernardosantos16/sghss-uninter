@@ -1,8 +1,11 @@
 package com.uninter.api.sghss.service;
 
 import com.uninter.api.sghss.domain.dto.request.RegisterDTO;
+import com.uninter.api.sghss.domain.dto.response.UsuarioResponseDTO;
 import com.uninter.api.sghss.domain.entity.Usuario;
+import com.uninter.api.sghss.mapper.UsuarioMapper;
 import com.uninter.api.sghss.repository.UsuarioRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,10 +16,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class AutenticacaoService implements UserDetailsService {
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private UsuarioMapper usuarioMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -36,10 +43,5 @@ public class AutenticacaoService implements UserDetailsService {
         usuarioRepository.save(usuario);
     }
 
-    public void liberarAcessoMedico(UUID id) {
-        Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado"));
-        usuario.usuarioMedico();
-        usuarioRepository.save(usuario);
-    }
+
 }

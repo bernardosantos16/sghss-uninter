@@ -18,10 +18,10 @@ import java.util.List;
 public class MedicoService {
 
     @Autowired
-    MedicoRepository medicoRepository;
+    private MedicoRepository medicoRepository;
 
     @Autowired
-    MedicoMapper medicoMapper;
+    private MedicoMapper medicoMapper;
 
     private Medico findMedicoById(Long id) {
         return medicoRepository.findById(id)

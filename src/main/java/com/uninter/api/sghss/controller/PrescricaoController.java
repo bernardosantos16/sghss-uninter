@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PrescricaoController {
 
     @Autowired
-    PrescricaoService prescricaoService;
+    private PrescricaoService prescricaoService;
 
     @PostMapping
     public ResponseEntity<PrescricaoResponseDTO> criarPrescricao(

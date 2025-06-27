@@ -16,10 +16,10 @@ import java.util.Optional;
 public class PacienteService {
 
     @Autowired
-    PacienteRepository pacienteRepository;
+    private PacienteRepository pacienteRepository;
 
     @Autowired
-    PacienteMapper pacienteMapper;
+    private PacienteMapper pacienteMapper;
 
 
 

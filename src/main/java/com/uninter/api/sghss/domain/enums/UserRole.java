@@ -6,7 +6,7 @@ import lombok.Getter;
 public enum UserRole {
     ADMIN("Administrador"),
     MEDICO("Médico"),
-    PACIENTE("Paciente");
+    USUARIO("Usuario");
 
     private final String descricao;
 

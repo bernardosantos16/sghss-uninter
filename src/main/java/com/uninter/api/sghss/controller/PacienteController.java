@@ -15,7 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/pacientes")
 public class PacienteController {
     @Autowired
-    PacienteService pacienteService;
+    private PacienteService pacienteService;
 
 
     @PostMapping
