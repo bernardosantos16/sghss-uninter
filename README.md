@@ -23,6 +23,15 @@ API REST para um sistema de gestão hospitalar, permitindo o gerenciamento de m�
 - **Prescrições Médicas**: Criação de prescrições associadas a uma consulta.
 - **Autenticação e Autorização**: Sistema de login com diferentes perfis de acesso (ADMIN, MEDICO, USUARIO).
 
+## Testes Automatizados
+
+O projeto possui uma suíte de testes automatizados para garantir a qualidade e o correto funcionamento das funcionalidades:
+
+- **Testes de Integração (Controllers)**: Cobrem os endpoints dos controladores, verificando a segurança e as operações CRUD básicas. Incluem `MedicoControllerTest` e `PacienteControllerTest`.
+- **Testes Unitários (Services)**: Focam na lógica de negócio dos serviços, como `ConsultaServiceTest`.
+- **Testes Unitários (Validações)**: Validam as regras de negócio específicas implementadas nas classes de validação, como `ValidadorHorarioAntencedencia`, `ValidadorMedicoAtivo`, `ValidadorMedicoOcupado`, `ValidadorPacienteAtivo` (para agendamento), `ValidadorHorarioAntecedencia` (para cancelamento), `ValidadorConsultaAtiva` e `ValidadorDataPrescricaoEConsulta` (para prescrições).
+- **Testes Unitários (Segurança)**: Garantem o correto funcionamento dos componentes de segurança, como `TokenServiceTest`.
+
 ## Como Executar o Projeto
 
 ### Pré-requisitos
@@ -35,7 +44,7 @@ API REST para um sistema de gestão hospitalar, permitindo o gerenciamento de m�
 
 1.  **Clone o repositório:**
     ```bash
-    git clone <url-do-repositorio>
+    git clone https://github.com/bernardosantos16/sghss-uninter
     cd sghss
     ```
 
