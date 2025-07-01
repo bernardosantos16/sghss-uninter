@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uninter.api.sghss.domain.dto.request.EnderecoRequestDTO;
 import com.uninter.api.sghss.domain.dto.request.EspecialidadeRequestDTO;
 import com.uninter.api.sghss.domain.dto.request.MedicoRequestDTO;
-import com.uninter.api.sghss.domain.entity.Especialidade;
-import com.uninter.api.sghss.repository.EspecialidadeRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +16,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -28,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Sql(scripts = "/clean.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-class MedicoControllerTest {
+class EspecialidadeControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -36,55 +31,33 @@ class MedicoControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Autowired
-    private EspecialidadeRepository especialidadeRepository;
-
     @Test
     @Transactional
-    @DisplayName("Deveria retornar status 403 ao tentar cadastrar médico sem permissão de ADMIN")
+    @DisplayName("Deveria retornar status 403 ao tentar cadastrar especialidade sem permissão de ADMIN")
     @WithMockUser(roles = "USUARIO")
     void cadastrarMedicoCenario1() throws Exception {
-        var medicoDTO = new MedicoRequestDTO(
-                "Medico Teste",
-                "medico@teste.com",
-                "(99) 99999-9999",
-                "123456",
-                1L,
-                null // Endereço não é relevante para este teste de autorização
+        var especialidadeDTO = new EspecialidadeRequestDTO(
+            "Dermatologia"
         );
 
-        mockMvc.perform(post("/medicos")
+        mockMvc.perform(post("/especialidades")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(medicoDTO)))
+                        .content(objectMapper.writeValueAsString(especialidadeDTO)))
                 .andExpect(status().isForbidden());
     }
 
     @Test
     @Transactional
-    @DisplayName("Deveria retornar status 201 ao cadastrar médico com permissão de ADMIN")
+    @DisplayName("Deveria retornar status 201 ao cadastrar especialidade com permissão de ADMIN")
     @WithMockUser(roles = "ADMIN")
     void cadastrarMedicoCenario2() throws Exception {
-
-        var especialidadeDTO = new EspecialidadeRequestDTO("Cardiologia");
-        Especialidade especialidade = especialidadeRepository.save(new Especialidade(especialidadeDTO));
-
-
-        var enderecoDTO = new EnderecoRequestDTO(
-                "Rua Teste", "Bairro Teste", "12345678", "Cidade Teste", "TS", "123", "Apto 1"
-        );;
-        var medicoDTO = new MedicoRequestDTO(
-                "Medico Admin",
-                "medico.admin2@teste.com",
-                "(11) 98888-7778",
-                "654322",
-                especialidade.getId(),
-                enderecoDTO
+        var especialidadeDTO = new EspecialidadeRequestDTO(
+                "Dermatologia"
         );
 
-
-        mockMvc.perform(post("/medicos")
+        mockMvc.perform(post("/especialidades")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(medicoDTO)))
+                        .content(objectMapper.writeValueAsString(especialidadeDTO)))
                 .andExpect(status().isCreated());
     }
 }

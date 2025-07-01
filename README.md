@@ -27,7 +27,7 @@ API REST para um sistema de gestão hospitalar, permitindo o gerenciamento de m�
 
 O projeto possui uma suíte de testes automatizados para garantir a qualidade e o correto funcionamento das funcionalidades:
 
-- **Testes de Integração (Controllers)**: Cobrem os endpoints dos controladores, verificando a segurança e as operações CRUD básicas. Incluem `MedicoControllerTest` e `PacienteControllerTest`.
+- **Testes de Integração (Controllers)**: Cobrem os endpoints dos controladores, verificando a segurança e as operações CRUD básicas. Incluem `MedicoControllerTest` `EspecialidadeController` e `PacienteControllerTest`.
 - **Testes Unitários (Services)**: Focam na lógica de negócio dos serviços, como `ConsultaServiceTest`.
 - **Testes Unitários (Validações)**: Validam as regras de negócio específicas implementadas nas classes de validação, como `ValidadorHorarioAntencedencia`, `ValidadorMedicoAtivo`, `ValidadorMedicoOcupado`, `ValidadorPacienteAtivo` (para agendamento), `ValidadorHorarioAntecedencia` (para cancelamento), `ValidadorConsultaAtiva` e `ValidadorDataPrescricaoEConsulta` (para prescrições).
 - **Testes Unitários (Segurança)**: Garantem o correto funcionamento dos componentes de segurança, como `TokenServiceTest`.

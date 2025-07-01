@@ -1,6 +1,6 @@
 package com.uninter.api.sghss.domain.dto.request;
 
-import com.uninter.api.sghss.domain.enums.Especialidade;
+//import com.uninter.api.sghss.domain.enums.Especialidade;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -21,7 +21,7 @@ public record MedicoRequestDTO(
         String crm,
 
         @NotNull
-        Especialidade especialidade,
+        Long idEspecialidade,
 
         @NotNull @Valid
         EnderecoRequestDTO endereco
