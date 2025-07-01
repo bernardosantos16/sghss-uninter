@@ -1,9 +1,7 @@
 package com.uninter.api.sghss.repository;
 
+import com.uninter.api.sghss.domain.entity.Especialidade;
 import com.uninter.api.sghss.domain.entity.Medico;
-import com.uninter.api.sghss.domain.enums.Especialidade;
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

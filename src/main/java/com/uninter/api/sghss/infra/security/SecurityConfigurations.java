@@ -34,7 +34,12 @@ public class SecurityConfigurations {
                 .authorizeHttpRequests(authorize -> authorize
                         // Login
                         .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/register").permitAll() // libera o login
-                        .requestMatchers(HttpMethod.PUT, "/auth/liberaracessomedico/{id}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/user/liberaracessomedico/{id}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/user/{login}").hasRole("ADMIN")
+
+                        // EspecialidadeController
+                        .requestMatchers(HttpMethod.POST, "/especialidades").hasRole("ADMIN")
+
 
                         // ConsultaController
                         .requestMatchers(HttpMethod.POST, "/consultas").hasAnyRole("ADMIN", "MEDICO", "USUARIO")
@@ -72,5 +77,4 @@ public class SecurityConfigurations {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
 }

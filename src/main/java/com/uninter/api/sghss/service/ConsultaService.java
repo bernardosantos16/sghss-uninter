@@ -13,6 +13,7 @@ import com.uninter.api.sghss.infra.exceptions.NotFoundException;
 import com.uninter.api.sghss.infra.exceptions.UnprocessebleEntityException;
 import com.uninter.api.sghss.mapper.ConsultaMapper;
 import com.uninter.api.sghss.repository.ConsultaRepository;
+import com.uninter.api.sghss.repository.EspecialidadeRepository;
 import com.uninter.api.sghss.repository.MedicoRepository;
 import com.uninter.api.sghss.repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,9 @@ public class ConsultaService {
 
     @Autowired
     private PacienteRepository pacienteRepository;
+
+    @Autowired
+    EspecialidadeRepository especialidadeRepository;
 
     @Autowired
     private MedicoRepository medicoRepository;
@@ -70,10 +74,15 @@ public class ConsultaService {
              return medicoRepository.findById(consultaRequestDTO.idMedico())
                     .orElseThrow(() -> new BadRequestException("Médico não encontrado com o ID: " + consultaRequestDTO.idMedico()));
         }
-        if (consultaRequestDTO.especialidade() == null){
+
+        if (consultaRequestDTO.idEspecialidade() == null){
             throw new BadRequestException("Especialidade não informada.");
         }
-        return medicoRepository.medicoAleatorioLivreNaData(consultaRequestDTO.especialidade(), consultaRequestDTO.data());
+
+        var especialidade = especialidadeRepository.findById(consultaRequestDTO.idEspecialidade())
+                .orElseThrow(() -> new BadRequestException("Especialidade não encontrada com o ID: " + consultaRequestDTO.idEspecialidade()));
+
+        return medicoRepository.medicoAleatorioLivreNaData(especialidade, consultaRequestDTO.data());
     }
 
     public ConsultaDetailedResponseDTO getConsultaById(Long id) {

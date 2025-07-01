@@ -6,8 +6,10 @@ import com.uninter.api.sghss.domain.dto.response.MedicoDetailedResponseDTO;
 import com.uninter.api.sghss.domain.dto.response.MedicoResponseDTO;
 import com.uninter.api.sghss.domain.entity.Medico;
 import com.uninter.api.sghss.domain.entity.Paciente;
+import com.uninter.api.sghss.infra.exceptions.BadRequestException;
 import com.uninter.api.sghss.infra.exceptions.NotFoundException;
 import com.uninter.api.sghss.mapper.MedicoMapper;
+import com.uninter.api.sghss.repository.EspecialidadeRepository;
 import com.uninter.api.sghss.repository.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,9 @@ public class MedicoService {
     private MedicoRepository medicoRepository;
 
     @Autowired
+    EspecialidadeRepository especialidadeRepository;
+
+    @Autowired
     private MedicoMapper medicoMapper;
 
     private Medico findMedicoById(Long id) {
@@ -29,7 +34,9 @@ public class MedicoService {
     }
 
     public MedicoDetailedResponseDTO cadastrarMedico(MedicoRequestDTO medicoRequestDTO) {
-        Medico medico = new Medico(medicoRequestDTO);
+        var especialidade = especialidadeRepository.findById(medicoRequestDTO.idEspecialidade())
+                .orElseThrow(() -> new BadRequestException("Especialidade não existente com o ID: " + medicoRequestDTO.idEspecialidade()));
+        Medico medico = new Medico(medicoRequestDTO, especialidade);
         medicoRepository.save(medico);
         return medicoMapper.medicoToMedicoDetailedResponseDTO(medico);
     }

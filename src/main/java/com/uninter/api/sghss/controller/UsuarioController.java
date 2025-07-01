@@ -4,12 +4,12 @@ import com.uninter.api.sghss.service.UsuarioService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+@RestController
+@RequestMapping("/user")
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
@@ -21,7 +21,7 @@ public class UsuarioController {
         return ResponseEntity.ok("Acesso liberado com sucesso");
     }
 
-    @GetMapping("/usuarios/{login}")
+    @GetMapping("/{login}")
     public ResponseEntity<?> getUsuarioByLogin(@PathVariable String login) {
         var usuario = usuarioService.getUsuarioByLogin(login);
         if (usuario == null) {
