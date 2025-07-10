@@ -37,31 +37,37 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.PUT, "/user/liberaracessomedico/{id}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/user/{login}").hasRole("ADMIN")
 
+                        // OpenAPI e Swagger
+                        .requestMatchers("/context-path/swagger-ui.html").permitAll()
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui.html",
+                                "swagger-ui/**").permitAll()
+
                         // EspecialidadeController
                         .requestMatchers(HttpMethod.POST, "/especialidades").hasRole("ADMIN")
 
-
                         // ConsultaController
-                        .requestMatchers(HttpMethod.POST, "/consultas").hasAnyRole("ADMIN", "MEDICO", "USUARIO")
+                        .requestMatchers(HttpMethod.POST, "/consultas").hasAnyRole("ADMIN" , "USUARIO")
                         .requestMatchers(HttpMethod.GET, "/consultas/{id}").hasAnyRole("ADMIN", "MEDICO", "USUARIO")
-                        .requestMatchers(HttpMethod.GET, "/consultas/consultasporpaciente/{id}").hasAnyRole("ADMIN", "MEDICO")
-                        .requestMatchers(HttpMethod.DELETE, "/consultas").hasAnyRole("ADMIN", "MEDICO", "USUARIO")
+                        .requestMatchers(HttpMethod.GET, "/consultas/consultasporpaciente/{id}").hasAnyRole("ADMIN", "MEDICO", "USUARIO")
+                        .requestMatchers(HttpMethod.DELETE, "/consultas/{id}").hasAnyRole("ADMIN", "MEDICO", "USUARIO")
 
                         // MedicoController
                         .requestMatchers(HttpMethod.POST, "/medicos").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/medicos/{id}").hasAnyRole("ADMIN", "MEDICO", "USUARIO")
-                        .requestMatchers(HttpMethod.GET, "/medicos").hasAnyRole("ADMIN", "MEDICO", "USUARIO")
+                        .requestMatchers(HttpMethod.GET, "/medicos/{id}").hasAnyRole("ADMIN", "USUARIO")
+                        .requestMatchers(HttpMethod.GET, "/medicos").hasAnyRole("ADMIN", "USUARIO")
                         .requestMatchers(HttpMethod.PUT, "/medicos/{id}").hasAnyRole("ADMIN", "MEDICO")
                         .requestMatchers(HttpMethod.DELETE, "/medicos/{id}").hasRole("ADMIN")
 
                         // PacienteController
-                        //.requestMatchers(HttpMethod.POST, "/pacientes").hasRole("ADMIN") // Ou .permitAll() se for auto-registro
+                        .requestMatchers(HttpMethod.POST, "/pacientes").hasAnyRole("ADMIN", "USUARIO") // Ou .permitAll() se for auto-registro
                         .requestMatchers(HttpMethod.GET, "/pacientes/{id}").hasAnyRole("ADMIN", "MEDICO", "USUARIO")
                         .requestMatchers(HttpMethod.PUT, "/pacientes/{id}").hasAnyRole("ADMIN", "USUARIO")
                         .requestMatchers(HttpMethod.DELETE, "/pacientes/{id}").hasRole("ADMIN")
 
                         // PrescricaoController
-                        .requestMatchers(HttpMethod.POST, "/prescricoes").hasAnyRole("ADMIN", "MEDICO")
+                        .requestMatchers(HttpMethod.POST, "/prescricoes").hasRole("MEDICO")
 
                         .anyRequest().authenticated()
                 )

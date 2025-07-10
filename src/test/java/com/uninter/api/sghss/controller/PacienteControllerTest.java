@@ -36,8 +36,8 @@ class PacienteControllerTest {
 
     @Test
     @Transactional
-    @DisplayName("Deveria retornar status 201 ao cadastrar paciente com qualquer role")
-    @WithMockUser
+    @DisplayName("Deveria retornar status 201 ao cadastrar paciente com role de ADMIN")
+    @WithMockUser(roles = "ADMIN")
     void cadastrarPacienteCenario1() throws Exception {
         var enderecoDTO = new com.uninter.api.sghss.domain.dto.request.EnderecoRequestDTO(
                 "Rua Paciente", "Bairro Paciente", "87654321", "Cidade Paciente", "TP", "321", null

@@ -2,6 +2,7 @@ package com.uninter.api.sghss.infra.exceptions.handlers;
 
 import com.uninter.api.sghss.infra.exceptions.BadRequestException;
 import com.uninter.api.sghss.infra.exceptions.NotFoundException;
+import com.uninter.api.sghss.infra.exceptions.UnprocessebleEntityException;
 import com.uninter.api.sghss.infra.exceptions.errors.Erro400;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -31,6 +32,12 @@ public class ErrorHandler {
     public ResponseEntity<?> handleBadRequestException(BadRequestException ex) {
         var error = ex.getMessage();
         return ResponseEntity.badRequest().body(error);
+    }
+
+    @ExceptionHandler(UnprocessebleEntityException.class)
+    public ResponseEntity<?> handleUnprocessebleEntityException(UnprocessebleEntityException ex) {
+        var error = ex.getMessage();
+        return ResponseEntity.unprocessableEntity() .body(error);
     }
 //    @ExceptionHandler(IllegalArgumentException.class)
 //    public ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException ex) {

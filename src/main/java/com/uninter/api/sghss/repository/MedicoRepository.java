@@ -14,6 +14,7 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
     //todo: mudar para pageable quando tiver mais de 10 médicos cadastrados
     List<Medico> findAllByAtivoTrue();
 
+   Boolean existsByIdAndEspecialidade(Long id, Especialidade especialidade);
 
     @Query("SELECT m.ativo FROM Medico m WHERE m.id = :id")
     Boolean verificaSeMedicoEstaAtivo(Long id);
